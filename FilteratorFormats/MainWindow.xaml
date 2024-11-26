@@ -1,0 +1,157 @@
+﻿<Window x:Class="FilteratorFormats.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FilteratorFormats"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="600" Background="#282438"  ResizeMode="NoResize" WindowStyle="None" MouseDown="MainWindow_MouseDown">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="Border"
+                                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                            To="Black" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="Border"
+                                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                            To="White" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </Window.Resources>
+    <Grid>
+
+        <Rectangle HorizontalAlignment="Center" Height="93" Margin="0,28,0,0" Fill="#312C44" VerticalAlignment="Top" Width="596"/>
+        <Rectangle HorizontalAlignment="Center" Height="169" Margin="0,178,0,0" Fill="#312C44" VerticalAlignment="Top" Width="596" />
+
+        <Button Content="X"   Name="CloseAppButton" HorizontalAlignment="Left" Margin="559,3,0,0" VerticalAlignment="Top" Width="39" Height="20"  FontSize="12" Click="CloseAppButton_Click" RenderTransformOrigin="0.5,0.5"/>
+        <Button Content="-" Name="MinimiseAppButton" HorizontalAlignment="Left" Margin="514,3,0,0" VerticalAlignment="Top"  FontFamily="Miriam CLM" VerticalContentAlignment="Center" Width="40" Height="20" Click="MinimiseAppButton_Click" FontSize="20"/>
+
+        <Label Content="Directory:" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <Label Content="Custom choice formats:" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <TextBox  Name="DirectoryTextBox" HorizontalAlignment="Left" Margin="10,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="469" Height="22" BorderBrush="Black" FontFamily="Segoe UI" FontSize="14" Text=""/>
+        <TextBox  x:Name="CustomFormatsTextBox" HorizontalAlignment="Left" Margin="10,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="469" Height="22" BorderBrush="Black" FontFamily="Segoe UI" FontSize="14" Text=""/>
+        <Button Content="Filter Files" Width="100" Height="22" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="490,84,0,0" Click="FilterFiles_Click"/>
+        <Button Content="Browse" Width="100" Height="21" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="490,42,0,0" Click="Browse_Click"/>
+
+        <Label Content="Image and Graphics formats:" HorizontalAlignment="Left" Margin="2,201,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".jpg/jpeg"  Name="JpgCheckBox" HorizontalAlignment="Left" Margin="6,220,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".png"  Name="PngCheckBox" HorizontalAlignment="Left" Margin="76,220,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".gif"  Name="GifCheckBox" HorizontalAlignment="Left" Margin="120,220,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".bmp"  Name="BmpCheckBox" HorizontalAlignment="Left" Margin="159,220,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".svg"  Name="SvgCheckBox" HorizontalAlignment="Left" Margin="206,220,0,0" VerticalAlignment="Top" Foreground="#EEF3F3" />
+        <CheckBox Content=".psd"  Name="PSDCheckBox" HorizontalAlignment="Left" Margin="6,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3" />
+        <CheckBox Content=".fig"  Name="FigCheckBox" HorizontalAlignment="Left" Margin="83,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3" />
+        <CheckBox Content=".sketch" Name="SketchCheckBox" HorizontalAlignment="Left" Margin="120,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".ai"   Name="AICheckBox" HorizontalAlignment="Left" Margin="51,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3" />
+
+        <Label Content="Video formats:" HorizontalAlignment="Left" Margin="2,174,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".mp4"  Name="Mp4CheckBox" HorizontalAlignment="Left" Margin="6,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".avi"  Name="AviCheckBox"  HorizontalAlignment="Left" Margin="54,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".mkv"  Name="MkvCheckBox" HorizontalAlignment="Left" Margin="93,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".mov"  Name="MovCheckBox"  HorizontalAlignment="Left" Margin="139,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+
+        <Label Content="Archive formats:" VerticalAlignment="Top" Margin="296,174,0,0" HorizontalAlignment="Left" Foreground="#EEF3F3"/>
+        <CheckBox Content=".zip"  Name="ZipCheckBox" HorizontalAlignment="Left" Margin="300,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".rar"  Name="RarCheckBox" HorizontalAlignment="Left" Margin="342,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".tar"  Name="TarCheckBox"  HorizontalAlignment="Left" Margin="380,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".7z"  Name="SevenZCheckBox" HorizontalAlignment="Left" Margin="418,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".iso"  Name="IsoCheckBox" HorizontalAlignment="Left" Margin="454,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+
+        <Label Content="Audio formats:" HorizontalAlignment="Left" Margin="2,242,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".mp3" Name="Mp3CheckBox"  HorizontalAlignment="Left" Margin="6,261,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".wav" Name="WavCheckBox" HorizontalAlignment="Left" Margin="54,261,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".flac" Name="FlacCheckBox" HorizontalAlignment="Left" Margin="97,261,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".aac"  Name="AacCheckBox" HorizontalAlignment="Left" Margin="139,261,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".ogg" Name="OggCheckBox" HorizontalAlignment="Left" Margin="179,261,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".wma" Name="WmaCheckBox" HorizontalAlignment="Left" Margin="223,261,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+
+        <Label Content="Text and Document formats:" VerticalAlignment="Top" Margin="296,202,0,0" HorizontalAlignment="Left" Foreground="#EEF3F3"/>
+        <CheckBox Content=".txt" Name="TxtCheckBox" HorizontalAlignment="Left" Margin="300,221,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".doc/docx" x:Name="DocxCheckBox" HorizontalAlignment="Left" Margin="339,221,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".odt" Name="OdtCheckBox"  HorizontalAlignment="Left" Margin="412,221,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".ods" Name="OdsCheckBox" HorizontalAlignment="Left" Margin="455,221,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".pdf" Name="PDFCheckBox" HorizontalAlignment="Left" Margin="499,221,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".xls/xlsx" Name="XlsxCheckBox" HorizontalAlignment="Left" Margin="300,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".ppt/pptx" Name="PptxCheckBox" HorizontalAlignment="Left" Margin="362,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".rtf" Name="RftCheckBox" HorizontalAlignment="Left" Margin="431,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".csv" Name="CsvCheckBox" HorizontalAlignment="Left" Margin="470,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+
+        <Label Content="System formats:" VerticalAlignment="Top" Margin="296,242,0,0" HorizontalAlignment="Left" Foreground="#EEF3F3"/>
+        <CheckBox Content=".exe" Name="ExeCheckBox" HorizontalAlignment="Left" Margin="300,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".dll" Name="DllCheckBox" HorizontalAlignment="Left" Margin="343,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".sys" Name="SysCheckBox"  HorizontalAlignment="Left" Margin="380,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".bat" Name="BatCheckBox" HorizontalAlignment="Left" Margin="419,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".сfg" Name="CfgCheckBox" HorizontalAlignment="Left" Margin="461,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".log" Name="LogCheckBox" HorizontalAlignment="Left" Margin="500,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".bin" Name="BinCheckBox" HorizontalAlignment="Left" Margin="541,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+
+        <Label Content="Code and Script Formats: " VerticalAlignment="Top" Margin="296,268,0,0" HorizontalAlignment="Left" Foreground="#EEF3F3"/>
+        <CheckBox Content=".c" Name="CCheckBox" HorizontalAlignment="Left" Margin="300,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".cpp" Name="CppCheckBox" HorizontalAlignment="Left" Margin="330,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".cs" Name="CsCheckBox" HorizontalAlignment="Left" Margin="374,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".java" Name="JavaCheckBox"  HorizontalAlignment="Left" Margin="408,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".py" Name="PyCheckBox" HorizontalAlignment="Left" Margin="452,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".go"  Name="GoCheckBox" HorizontalAlignment="Left" Margin="487,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".rs"  Name="RsCheckBox" HorizontalAlignment="Left" Margin="524,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".rb"  Name="RbCheckBox" HorizontalAlignment="Left" Margin="558,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".ico" Name="IcoCheckBox" HorizontalAlignment="Left" Margin="247,220,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".mpeg" Name="MpegCheckBox"  HorizontalAlignment="Left" Margin="188,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".flv"  Name="FlvCheckBox"  HorizontalAlignment="Left" Margin="243,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <Label Content="Web Data formats:" HorizontalAlignment="Left" Margin="2,267,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".html" Name="HtmlCheckBox"  HorizontalAlignment="Left" Margin="6,286,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".css" Name="CssCheckBox" HorizontalAlignment="Left" Margin="54,286,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".js" Name="JsCheckBox" HorizontalAlignment="Left" Margin="92,286,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".json" Name="JsonCheckBox" HorizontalAlignment="Left" Margin="123,286,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".xml" Name="XmlCheckBox" HorizontalAlignment="Left" Margin="167,286,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".php" Name="PhpCheckBox" HorizontalAlignment="Left" Margin="208,286,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+
+        <Label Content="File formats of 3D modeling:" HorizontalAlignment="Left" Margin="296,294,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".obj" Name="ObjCheckBox" HorizontalAlignment="Left" Margin="300,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".blend" Name="BlendCheckBox" HorizontalAlignment="Left" Margin="413,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".stl" Name="StlCheckBox" HorizontalAlignment="Left" Margin="339,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".fbx" Name="FbxCheckBox" HorizontalAlignment="Left" Margin="374,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".max" Name="MaxCheckBox" HorizontalAlignment="Left" Margin="465,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".3ds" Name="ThreeDSCheckBox" HorizontalAlignment="Left" Margin="510,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".STEP" Name="STEPCheckBox" HorizontalAlignment="Left" Margin="551,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+
+        <Label Content="Font Formats:" HorizontalAlignment="Left" Margin="2,294,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".ttf" Name="TtfCheckBox"  HorizontalAlignment="Left" Margin="6,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".oft" Name="OftCheckBox"  HorizontalAlignment="Left" Margin="42,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".woff/woff2" Name="WoffCheckBox"  HorizontalAlignment="Left" Margin="80,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+        <CheckBox Content=".eot" Name="EotCheckBox"  HorizontalAlignment="Left" Margin="160,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
+
+
+    </Grid>
+
+</Window>
