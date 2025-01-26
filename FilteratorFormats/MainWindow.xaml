@@ -5,19 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FilteratorFormats"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="600" Background="#282438"  ResizeMode="NoResize" WindowStyle="None" MouseDown="MainWindow_MouseDown">
+        Title="Filterator Formats" Height="335" Width="760" Background="#282438"  ResizeMode="NoResize" WindowStyle="None" MouseDown="MainWindow_MouseDown">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Rubik"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Border"
                                 Background="{TemplateBinding Background}" 
-                                CornerRadius="5">
+                                CornerRadius="3">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -46,112 +47,323 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <Style TargetType="TextBox" x:Key="RoundedTextBox">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="2"
+                        CornerRadius="3"                   
+                        SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                  VerticalAlignment="Center" 
+                                  HorizontalAlignment="Left"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid>
+                            <Border x:Name="Border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="5" 
+                                Padding="10,5">
+                                <ContentPresenter x:Name="ContentSite"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  ContentSource="Header"
+                                                  RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#282438" />
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily" Value="Rubik"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontFamily" Value="Rubik" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal">
+                            <Border Name="CheckMarkBorder"
+                                    Width="20" Height="20"
+                                    BorderBrush="White" Background="#312C44" BorderThickness="2" 
+                                    CornerRadius="10">
+                                <Ellipse Name="CheckMark" 
+                                         Fill="White" 
+                                         Visibility="Collapsed" />
+                            </Border>
+                            <ContentPresenter Margin="5,2,0,0"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="CheckMarkBorder" Property="BorderBrush" Value="#8679BB"/>
+                            </Trigger>
 
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ToggleButton">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Rubik"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="Border"
+                        Background="{TemplateBinding Background}" 
+                        CornerRadius="3">
+                            <TextBlock x:Name="Arrow"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"
+                               Text="▼" 
+                               Foreground="{TemplateBinding Foreground}"/>
+                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="White"/>
+                                <Setter TargetName="Arrow" Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="Border"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="Black" Duration="0:0:0.3" />
+                                            <ColorAnimation Storyboard.TargetName="Arrow"
+                                                    Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                    To="White" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="Border"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="White" Duration="0:0:0.3" />
+                                            <ColorAnimation Storyboard.TargetName="Arrow"
+                                                    Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                                    To="Black" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DatePicker">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="4*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="29.167" />
+                                <ColumnDefinition Width="0.833"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="PartTextBox" IsReadOnly="True" BorderBrush="{x:Null}"  Style="{StaticResource RoundedTextBox}"
+                             Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource TemplatedParent}, StringFormat='{}{0:MM/dd/yyyy}'}" Margin="0,-2,0,-2" Grid.RowSpan="2"/>
+                            <ToggleButton x:Name="PartButton"  Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2"
+                               IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                <Path Data="M 0 0 L 10 0 L 5 7 Z" Fill="Black" Width="10" Height="7"/>
+                            </ToggleButton>
+                            <Popup x:Name="PartPopup" Placement="Bottom" StaysOpen="False" IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" Grid.RowSpan="2">
+                                <Border BorderBrush="Gray" BorderThickness="1" Background="White">
+                                    <Calendar x:Name="PartCalendar"
+                              SelectedDate="{Binding Path=SelectedDate, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="79*"/>
+            <RowDefinition Height="272*"/>
+        </Grid.RowDefinitions>
+        <Rectangle HorizontalAlignment="Left" Height="284" Margin="490,37,0,0" Fill="#312C44" VerticalAlignment="Top" Width="268" Grid.RowSpan="2"/>
+        <Button Content="X"   Name="CloseAppButton" HorizontalAlignment="Left" Margin="719,3,0,0" VerticalAlignment="Top" Width="39" Height="20"  FontSize="12" Click="CloseAppButton_Click" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}"/>
+        <Button Content="-" Name="MinimiseAppButton" HorizontalAlignment="Left" Margin="674,3,0,0" VerticalAlignment="Top"  FontFamily="Miriam CLM" VerticalContentAlignment="Center" Width="40" Height="20" Click="MinimiseAppButton_Click" FontSize="20" BorderBrush="{x:Null}"/>
 
-        <Rectangle HorizontalAlignment="Center" Height="93" Margin="0,28,0,0" Fill="#312C44" VerticalAlignment="Top" Width="596"/>
-        <Rectangle HorizontalAlignment="Center" Height="169" Margin="0,178,0,0" Fill="#312C44" VerticalAlignment="Top" Width="596" />
+        <TabControl x:Name="FileFormatsTabControl" Margin="5,38,273,13"  Grid.Row="1" Background="#312C44" BorderBrush="Transparent">
+            <TabItem Header="Images" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="29*"/>
+                    </Grid.ColumnDefinitions>
+                    <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="33,0,0,0">
+                        <CheckBox Content=".jpg/.jpeg" Margin="10" Tag=".jpg/.jpeg"/>
+                        <CheckBox Content=".jfif" Margin="10" Tag=".jfif"/>
+                        <CheckBox Content=".png" Margin="10" Tag=".png" />
+                        <CheckBox Content=".gif" Margin="10" Tag=".gif"/>
+                        <CheckBox Content=".bmp" Margin="10" Tag=".bmp"/>
+                        <CheckBox Content=".svg" Margin="10" Tag=".svg"/>
+                        <CheckBox Content=".psd" Margin="10" Tag=".psd"/>
+                        <CheckBox Content=".fig" Margin="10" Tag=".fig"/>
+                        <CheckBox Content=".ico" Margin="10" Tag=".ico"/>
+                    </WrapPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Video">
+                <Grid>
+                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <CheckBox Content=".mp4" Margin="10" Tag=".mp4"/>
+                        <CheckBox Content=".avi" Margin="10" Tag=".avi"/>
+                        <CheckBox Content=".mkv" Margin="10" Tag=".mkv"/>
+                        <CheckBox Content=".mov" Margin="10" Tag=".mov"/>
+                        <CheckBox Content=".mpeg" Margin="10" Tag=".mpeg"/>
+                        <CheckBox Content=".flv" Margin="10" Tag=".flv"/>
+                    </WrapPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Audio">
+                <Grid>
+                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <CheckBox Content=".mp3" Margin="10" Tag=".mp3"/>
+                        <CheckBox Content=".wav" Margin="10" Tag=".wav"/>
+                        <CheckBox Content=".flac" Margin="10" Tag=".flac"/>
+                        <CheckBox Content=".aac" Margin="10" Tag=".aac"/>
+                        <CheckBox Content=".ogg" Margin="10" Tag=".ogg"/>
+                        <CheckBox Content=".wma" Margin="10" Tag=".wma"/>
+                    </WrapPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Text and Documents">
+                <Grid>
+                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <CheckBox Content=".txt" Margin="10" Tag=".txt"/>
+                        <CheckBox Content=".log" Margin="10" Tag=".log"/>
+                        <CheckBox Content=".csv" Margin="10" Tag=".csv"/>
+                        <CheckBox Content=".rft" Margin="10" Tag=".rft" />
+                        <CheckBox Content=".doc/docx" Margin="10" Tag=".doc/docx"/>
+                        <CheckBox Content=".dot/dotx" Margin="10" Tag=".doc/dotx"/>
+                        <CheckBox Content=".odt" Margin="10" Tag=".odt"/>
+                        <CheckBox Content=".ott" Margin="10" Tag=".ott"/>
+                        <CheckBox Content=".ods" Margin="10" Tag=".ods"/>
+                        <CheckBox Content=".pdf" Margin="10" Tag=".pdf"/>
+                        <CheckBox Content=".xls/xlsx" Margin="10" Tag=".xls/xlsx"/>
+                        <CheckBox Content=".ppt/pptx" Margin="10" Tag=".ppt/pptx"/>
+                    </WrapPanel>
+                </Grid>
+            </TabItem>
 
-        <Button Content="X"   Name="CloseAppButton" HorizontalAlignment="Left" Margin="559,3,0,0" VerticalAlignment="Top" Width="39" Height="20"  FontSize="12" Click="CloseAppButton_Click" RenderTransformOrigin="0.5,0.5"/>
-        <Button Content="-" Name="MinimiseAppButton" HorizontalAlignment="Left" Margin="514,3,0,0" VerticalAlignment="Top"  FontFamily="Miriam CLM" VerticalContentAlignment="Center" Width="40" Height="20" Click="MinimiseAppButton_Click" FontSize="20"/>
+            <TabItem Header="Archives">
+                <Grid >
+                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <CheckBox Content=".zip" Tag=".zip" Margin="10"/>
+                        <CheckBox Content=".rar" Tag=".rar" Margin="10"/>
+                        <CheckBox Content=".tar" Tag=".tar" Margin="10"/>
+                        <CheckBox Content=".7z" Tag=".7z" Margin="10"/>
+                        <CheckBox Content=".iso" Tag=".iso" Margin="10"/>
+                    </WrapPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Programming">
+                <Grid>
+                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <CheckBox Content=".c" Tag=".c" Margin="10"/>
+                        <CheckBox Content=".cpp" Tag=".cpp" Margin="10"/>
+                        <CheckBox Content=".cs" Tag=".cs" Margin="10"/>
+                        <CheckBox Content=".java" Tag=".java" Margin="10"/>
+                        <CheckBox Content=".py" Tag=".py" Margin="10"/>
+                        <CheckBox Content=".go" Tag=".go" Margin="10"/>
+                        <CheckBox Content=".rs" Tag=".rs" Margin="10"/>
+                        <CheckBox Content=".rb" Tag=".rb" Margin="10"/>
+                        <CheckBox Content=".r" Tag=".r" Margin="10"/>
+                        <CheckBox Content=".php" Tag=".php" Margin="10"/>
+                        <CheckBox Content=".swift" Tag=".swift" Margin="10"/>
+                        <CheckBox Content=".kt" Tag=".kt" Margin="10"/>
+                        <CheckBox Content=".html" Tag=".html" Margin="10"/>
+                        <CheckBox Content=".css" Tag=".css" Margin="10"/>
+                        <CheckBox Content=".js" Tag=".js" Margin="10"/>
+                        <CheckBox Content=".json" Tag=".json" Margin="10"/>
+                    </WrapPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="System">
+                <Grid >
+                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <CheckBox Content=".dll" Tag=".dll" Margin="10"/>
+                        <CheckBox Content=".exe" Tag=".exe" Margin="10"/>
+                        <CheckBox Content=".sys" Tag=".sys" Margin="10"/>
+                        <CheckBox Content=".bat" Tag=".bat" Margin="10"/>
+                        <CheckBox Content=".cfg" Tag=".cfg" Margin="10"/>
+                        <CheckBox Content=".log" Tag=".log" Margin="10"/>
+                        <CheckBox Content=".bin" Tag=".bin" Margin="10"/>
+                        <CheckBox Content=".msi" Tag=".msi" Margin="10"/>
+                        <CheckBox Content=".tmp" Tag=".tmp" Margin="10"/>
+                        <CheckBox Content=".dat" Tag=".dat" Margin="10"/>
+                        <CheckBox Content=".img" Tag=".img" Margin="10"/>
+                        <CheckBox Content=".syslog" Tag=".syslog" Margin="10"/>
+                    </WrapPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
-        <Label Content="Directory:" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <Label Content="Custom choice formats:" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <TextBox  Name="DirectoryTextBox" HorizontalAlignment="Left" Margin="10,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="469" Height="22" BorderBrush="Black" FontFamily="Segoe UI" FontSize="14" Text=""/>
-        <TextBox  x:Name="CustomFormatsTextBox" HorizontalAlignment="Left" Margin="10,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="469" Height="22" BorderBrush="Black" FontFamily="Segoe UI" FontSize="14" Text=""/>
-        <Button Content="Filter Files" Width="100" Height="22" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="490,84,0,0" Click="FilterFiles_Click"/>
-        <Button Content="Browse" Width="100" Height="21" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="490,42,0,0" Click="Browse_Click"/>
+        <Label Content="Directory with files" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Center" Foreground="#EEF3F3" FontFamily="Rubik" FontSize="14"/>
+        <TextBox Name="DirectoryFilesTextBox"  Style="{StaticResource RoundedTextBox}" HorizontalAlignment="Left" Margin="5,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="392" Height="26" BorderBrush="{x:Null}" FontFamily="Rubik" FontSize="14" Text=""/>
+        <Button Content="Browse" Width="80" Height="22" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,47,0,0" Click="Browse_Click"/>
+        <Label Content="Directory for placing filtered files" HorizontalAlignment="Left" Margin="2,64,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White" Grid.RowSpan="2" FontSize="14" FontFamily="Rubik"/>
+        <TextBox Name="FilteredDirectoryTextBox"  Style="{StaticResource RoundedTextBox}" HorizontalAlignment="Left" Margin="5,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="392" Height="26" BorderBrush="{x:Null}" FontFamily="Rubik" FontSize="14" Text="" Grid.Row="1"/>
+        <Button Content="Browse" Width="80" Height="22" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,11,0,0" Click="BrowseFilteredFolder_Click" Grid.Row="1"/>
 
-        <Label Content="Image and Graphics formats:" HorizontalAlignment="Left" Margin="2,201,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".jpg/jpeg"  Name="JpgCheckBox" HorizontalAlignment="Left" Margin="6,220,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".png"  Name="PngCheckBox" HorizontalAlignment="Left" Margin="76,220,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".gif"  Name="GifCheckBox" HorizontalAlignment="Left" Margin="120,220,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".bmp"  Name="BmpCheckBox" HorizontalAlignment="Left" Margin="159,220,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".svg"  Name="SvgCheckBox" HorizontalAlignment="Left" Margin="206,220,0,0" VerticalAlignment="Top" Foreground="#EEF3F3" />
-        <CheckBox Content=".psd"  Name="PSDCheckBox" HorizontalAlignment="Left" Margin="6,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3" />
-        <CheckBox Content=".fig"  Name="FigCheckBox" HorizontalAlignment="Left" Margin="83,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3" />
-        <CheckBox Content=".sketch" Name="SketchCheckBox" HorizontalAlignment="Left" Margin="120,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".ai"   Name="AICheckBox" HorizontalAlignment="Left" Margin="51,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3" />
+        <Label Content="Filter Settings" HorizontalAlignment="Left" Margin="522,35,0,0" VerticalAlignment="Top" FontSize="30" FontFamily="Rubik" Foreground="White" Grid.RowSpan="2"/>
+        <Label Content="Min size(KB):" HorizontalAlignment="Left" Margin="493,75,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Rubik" FontSize="16" Grid.RowSpan="2"/>
+        <TextBox Name="MinFileSizeTextBox" HorizontalAlignment="Left" Style="{StaticResource RoundedTextBox}" Margin="496,23,0,0" VerticalAlignment="Top" Width="120"  Height="24" BorderBrush="{x:Null}" Grid.Row="1" FontFamily="Rubik"/>
+        <Label Content="Max size(KB):" HorizontalAlignment="Left" Margin="630,75,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Rubik" FontSize="16" Grid.RowSpan="2"/>
+        <TextBox Name="MaxFileSizeTextBox" HorizontalAlignment="Left" Style="{StaticResource RoundedTextBox}" Margin="634,23,0,0"  VerticalAlignment="Top" Width="120"  Height="24" BorderBrush="{x:Null}" Grid.Row="1" FontFamily="Rubik"/>
+        <Label Content="Files after" HorizontalAlignment="Left" Margin="492,47,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="White" FontFamily="Rubik" FontSize="16"/>
+        <DatePicker x:Name="FilterDateAfterPicker"  HorizontalAlignment="Left" Margin="496,72,0,0" Grid.Row="1" VerticalAlignment="Top" Width="118" BorderBrush="{x:Null}" Height="20"/>
+        <Label Content="Files before" HorizontalAlignment="Left" Margin="630,47,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="White" FontFamily="Rubik" FontSize="16"/>
+        <DatePicker x:Name="FilterDateBeforePicker"  HorizontalAlignment="Left" Margin="634,72,0,0" Grid.Row="1" VerticalAlignment="Top" Width="118" Height="20" BorderBrush="{x:Null}"/>
+        <Label Content="Custom choice formats" HorizontalAlignment="Left" Margin="492,92,0,0" VerticalAlignment="Top" Foreground="#EEF3F3" FontFamily="Rubik" Grid.Row="1" FontSize="16"/>
+        <TextBox Name="CustomFormatsTextBox"  Style="{StaticResource RoundedTextBox}" HorizontalAlignment="Left" Margin="496,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderBrush="{x:Null}" Width="258" Height="26" FontFamily="Rubik" FontSize="14" Text="" Grid.Row="1"/>
+        <Label Content="Folder name for the filtered files " HorizontalAlignment="Left" Margin="492,135,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="White" FontFamily="Rubik" FontSize="16"/>
+        <TextBox Name="FilteredFolderNameTextBox"  Style="{StaticResource RoundedTextBox}" HorizontalAlignment="Left" Margin="496,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderBrush="{x:Null}" Width="258" Height="26"  FontFamily="Rubik" FontSize="14" Text="" Grid.Row="1"/>
+        <CheckBox Name="DeleteTheFilesCheckBox" Content="Delete the Files(without folder)" HorizontalAlignment="Left" Margin="498,189,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="14"/>
 
-        <Label Content="Video formats:" HorizontalAlignment="Left" Margin="2,174,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".mp4"  Name="Mp4CheckBox" HorizontalAlignment="Left" Margin="6,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".avi"  Name="AviCheckBox"  HorizontalAlignment="Left" Margin="54,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".mkv"  Name="MkvCheckBox" HorizontalAlignment="Left" Margin="93,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".mov"  Name="MovCheckBox"  HorizontalAlignment="Left" Margin="139,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-
-        <Label Content="Archive formats:" VerticalAlignment="Top" Margin="296,174,0,0" HorizontalAlignment="Left" Foreground="#EEF3F3"/>
-        <CheckBox Content=".zip"  Name="ZipCheckBox" HorizontalAlignment="Left" Margin="300,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".rar"  Name="RarCheckBox" HorizontalAlignment="Left" Margin="342,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".tar"  Name="TarCheckBox"  HorizontalAlignment="Left" Margin="380,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".7z"  Name="SevenZCheckBox" HorizontalAlignment="Left" Margin="418,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".iso"  Name="IsoCheckBox" HorizontalAlignment="Left" Margin="454,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-
-        <Label Content="Audio formats:" HorizontalAlignment="Left" Margin="2,242,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".mp3" Name="Mp3CheckBox"  HorizontalAlignment="Left" Margin="6,261,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".wav" Name="WavCheckBox" HorizontalAlignment="Left" Margin="54,261,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".flac" Name="FlacCheckBox" HorizontalAlignment="Left" Margin="97,261,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".aac"  Name="AacCheckBox" HorizontalAlignment="Left" Margin="139,261,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".ogg" Name="OggCheckBox" HorizontalAlignment="Left" Margin="179,261,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".wma" Name="WmaCheckBox" HorizontalAlignment="Left" Margin="223,261,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-
-        <Label Content="Text and Document formats:" VerticalAlignment="Top" Margin="296,202,0,0" HorizontalAlignment="Left" Foreground="#EEF3F3"/>
-        <CheckBox Content=".txt" Name="TxtCheckBox" HorizontalAlignment="Left" Margin="300,221,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".doc/docx" x:Name="DocxCheckBox" HorizontalAlignment="Left" Margin="339,221,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".odt" Name="OdtCheckBox"  HorizontalAlignment="Left" Margin="412,221,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".ods" Name="OdsCheckBox" HorizontalAlignment="Left" Margin="455,221,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".pdf" Name="PDFCheckBox" HorizontalAlignment="Left" Margin="499,221,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".xls/xlsx" Name="XlsxCheckBox" HorizontalAlignment="Left" Margin="300,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".ppt/pptx" Name="PptxCheckBox" HorizontalAlignment="Left" Margin="362,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".rtf" Name="RftCheckBox" HorizontalAlignment="Left" Margin="431,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".csv" Name="CsvCheckBox" HorizontalAlignment="Left" Margin="470,236,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-
-        <Label Content="System formats:" VerticalAlignment="Top" Margin="296,242,0,0" HorizontalAlignment="Left" Foreground="#EEF3F3"/>
-        <CheckBox Content=".exe" Name="ExeCheckBox" HorizontalAlignment="Left" Margin="300,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".dll" Name="DllCheckBox" HorizontalAlignment="Left" Margin="343,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".sys" Name="SysCheckBox"  HorizontalAlignment="Left" Margin="380,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".bat" Name="BatCheckBox" HorizontalAlignment="Left" Margin="419,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".сfg" Name="CfgCheckBox" HorizontalAlignment="Left" Margin="461,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".log" Name="LogCheckBox" HorizontalAlignment="Left" Margin="500,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".bin" Name="BinCheckBox" HorizontalAlignment="Left" Margin="541,262,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-
-        <Label Content="Code and Script Formats: " VerticalAlignment="Top" Margin="296,268,0,0" HorizontalAlignment="Left" Foreground="#EEF3F3"/>
-        <CheckBox Content=".c" Name="CCheckBox" HorizontalAlignment="Left" Margin="300,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".cpp" Name="CppCheckBox" HorizontalAlignment="Left" Margin="330,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".cs" Name="CsCheckBox" HorizontalAlignment="Left" Margin="374,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".java" Name="JavaCheckBox"  HorizontalAlignment="Left" Margin="408,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".py" Name="PyCheckBox" HorizontalAlignment="Left" Margin="452,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".go"  Name="GoCheckBox" HorizontalAlignment="Left" Margin="487,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".rs"  Name="RsCheckBox" HorizontalAlignment="Left" Margin="524,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".rb"  Name="RbCheckBox" HorizontalAlignment="Left" Margin="558,287,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".ico" Name="IcoCheckBox" HorizontalAlignment="Left" Margin="247,220,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".mpeg" Name="MpegCheckBox"  HorizontalAlignment="Left" Margin="188,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".flv"  Name="FlvCheckBox"  HorizontalAlignment="Left" Margin="243,194,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <Label Content="Web Data formats:" HorizontalAlignment="Left" Margin="2,267,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".html" Name="HtmlCheckBox"  HorizontalAlignment="Left" Margin="6,286,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".css" Name="CssCheckBox" HorizontalAlignment="Left" Margin="54,286,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".js" Name="JsCheckBox" HorizontalAlignment="Left" Margin="92,286,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".json" Name="JsonCheckBox" HorizontalAlignment="Left" Margin="123,286,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".xml" Name="XmlCheckBox" HorizontalAlignment="Left" Margin="167,286,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".php" Name="PhpCheckBox" HorizontalAlignment="Left" Margin="208,286,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-
-        <Label Content="File formats of 3D modeling:" HorizontalAlignment="Left" Margin="296,294,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".obj" Name="ObjCheckBox" HorizontalAlignment="Left" Margin="300,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".blend" Name="BlendCheckBox" HorizontalAlignment="Left" Margin="413,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".stl" Name="StlCheckBox" HorizontalAlignment="Left" Margin="339,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".fbx" Name="FbxCheckBox" HorizontalAlignment="Left" Margin="374,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".max" Name="MaxCheckBox" HorizontalAlignment="Left" Margin="465,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".3ds" Name="ThreeDSCheckBox" HorizontalAlignment="Left" Margin="510,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".STEP" Name="STEPCheckBox" HorizontalAlignment="Left" Margin="551,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-
-        <Label Content="Font Formats:" HorizontalAlignment="Left" Margin="2,294,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".ttf" Name="TtfCheckBox"  HorizontalAlignment="Left" Margin="6,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".oft" Name="OftCheckBox"  HorizontalAlignment="Left" Margin="42,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".woff/woff2" Name="WoffCheckBox"  HorizontalAlignment="Left" Margin="80,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-        <CheckBox Content=".eot" Name="EotCheckBox"  HorizontalAlignment="Left" Margin="160,315,0,0" VerticalAlignment="Top" Foreground="#EEF3F3"/>
-
-
+        <Button Content="Filter Files" Width="254" Height="22" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="496,215,0,0" Click="FilterFiles_Click" Grid.Row="1"/>
     </Grid>
-
 </Window>
