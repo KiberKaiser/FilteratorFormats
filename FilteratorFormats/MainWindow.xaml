@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FilteratorFormats"
         mc:Ignorable="d"
-        Title="Filterator Formats" Height="335" Width="760" Background="#282438"  ResizeMode="NoResize" WindowStyle="None" MouseDown="MainWindow_MouseDown">
+        Title="Filterator Formats" Height="335" Width="760" Background="#282438"  ResizeMode="NoResize" WindowStyle="None" MouseDown="MainWindow_MouseDown" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="White"/>

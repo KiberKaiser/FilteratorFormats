@@ -68,7 +68,7 @@ namespace FilteratorFormats
                             {
                                 if (item is CheckBox checkBox && checkBox.IsChecked == true)
                                 {
-                                    var formats = checkBox.Tag.ToString().Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                                    var formats = checkBox.Tag.ToString().ToLower().Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                                     selectedFormats.AddRange(formats);
                                 }
                             }
@@ -78,16 +78,15 @@ namespace FilteratorFormats
             }
             if (!string.IsNullOrWhiteSpace(CustomFormatsTextBox.Text))
             {
-                var customFormats = CustomFormatsTextBox.Text.Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var customFormats = CustomFormatsTextBox.Text.ToLower().Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 selectedFormats.AddRange(customFormats);
             }
             return selectedFormats;
         }
-
         private void FilterFiles_Click(object sender, RoutedEventArgs e)
         {
             string sourceDirectory = DirectoryFilesTextBox.Text;
-            string destinationDirectory = null; 
+            string destinationDirectory = null;
 
             if (string.IsNullOrEmpty(sourceDirectory))
             {
@@ -114,7 +113,7 @@ namespace FilteratorFormats
                     destinationDirectory = Path.Combine(FilteredDirectoryTextBox.Text, "FilteredFiles");
                 }
 
-                Directory.CreateDirectory(destinationDirectory); 
+                Directory.CreateDirectory(destinationDirectory);
             }
 
             var selectedFormats = GetSelectedFormats();
@@ -164,6 +163,18 @@ namespace FilteratorFormats
                     else
                     {
                         string destinationFile = Path.Combine(destinationDirectory, fileName);
+
+ 
+                        int count = 1;
+                        string fileExtension = Path.GetExtension(fileName);
+                        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+
+                        while (File.Exists(destinationFile))
+                        {
+                            destinationFile = Path.Combine(destinationDirectory, $"{fileNameWithoutExtension} ({count}){fileExtension}");
+                            count++;
+                        }
+
                         File.Move(file, destinationFile);
                     }
                 }
@@ -182,7 +193,7 @@ namespace FilteratorFormats
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-
+    
         private void MinimiseAppButton_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
