@@ -21,5 +21,3 @@ This application allows users to select options to filter files from a selected 
 ### Requiremnts
 + .NET 7.0
 + Windows with WPF support
-## Installation 
-[Download for SourceForge](https://sourceforge.net/projects/filteratorformats/files/latest/download)
